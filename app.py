@@ -18,43 +18,393 @@ st.set_page_config(
     layout="wide"
 )
 
-# CSS スタイリング
+# CSS スタイリング - エヴァンゲリオンMAGI風
 st.markdown("""
     <style>
+    /* ダークテーマベース - 真っ黒 */
+    .stApp {
+        background-color: #000000;
+        color: #ff6600;
+    }
+
+    /* CRTスキャンライン効果 */
+    .stApp::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.15),
+            rgba(0, 0, 0, 0.15) 1px,
+            transparent 1px,
+            transparent 2px
+        );
+        pointer-events: none;
+        z-index: 1000;
+    }
+
+    /* 見出しとテキストの色 - オレンジ */
+    h1, h2, h3, h4, h5, h6 {
+        color: #ff6600 !important;
+        font-family: 'Courier New', monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    /* メインヘッダー - MAGIシステムコード風 */
     .main-header {
         text-align: center;
         padding: 1rem 0;
-        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border-radius: 10px;
-        margin-bottom: 2rem;
+        background: #000000;
+        color: #ff6600;
+        border: 3px solid #ff6600;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 0 30px rgba(255, 102, 0, 0.5);
+        font-family: 'Courier New', monospace;
     }
+    .main-header h1 {
+        color: #ff6600;
+        text-shadow: 0 0 10px #ff6600;
+        font-family: 'Courier New', monospace;
+        letter-spacing: 0.3em;
+        font-weight: bold;
+        margin-bottom: 0.3rem;
+    }
+    .main-header p {
+        margin: 0;
+    }
+
+    /* モデルカード - エヴァMAGI風の大きなブロック */
     .model-card {
-        border-left: 4px solid;
+        border: 4px solid;
         padding: 1rem;
-        margin: 1rem 0;
-        border-radius: 5px;
+        margin: 1.5rem 0;
+        border-radius: 0;
+        font-family: 'Courier New', monospace;
+        position: relative;
+        min-height: 120px;
+        font-size: 0.85em;
     }
+    /* MELCHIOR - 赤色ブロック */
     .melchior {
-        border-left-color: #FF6B6B;
-        background-color: #FFF5F5;
+        border-color: #ff0000;
+        background: #cc0000;
+        box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
     }
+    /* BALTHASAR - 青色ブロック */
     .balthasar {
-        border-left-color: #4ECDC4;
-        background-color: #F0FFFE;
+        border-color: #0080ff;
+        background: #0066cc;
+        box-shadow: 0 0 30px rgba(0, 128, 255, 0.8);
     }
+    /* CASPER - 黄色ブロック */
     .casper {
-        border-left-color: #FFE66D;
-        background-color: #FFFEF0;
+        border-color: #ffff00;
+        background: #cccc00;
+        box-shadow: 0 0 30px rgba(255, 255, 0, 0.8);
     }
+    /* CONSENSUS - オレンジ */
     .consensus {
-        border-left-color: #667eea;
-        background-color: #F0F2FF;
+        border-color: #ff6600;
+        background: #cc5500;
+        box-shadow: 0 0 30px rgba(255, 102, 0, 0.8);
     }
     .model-name {
         font-weight: bold;
-        font-size: 1.2em;
-        margin-bottom: 10px;
+        font-size: 1.3em;
+        margin-bottom: 8px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        font-family: 'Courier New', monospace;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+    }
+    .melchior .model-name {
+        color: #000000;
+    }
+    .balthasar .model-name {
+        color: #000000;
+    }
+    .casper .model-name {
+        color: #000000;
+    }
+    .consensus .model-name {
+        color: #000000;
+    }
+    /* カード内のテキストも黒に */
+    .model-card p,
+    .model-card div,
+    .model-card span {
+        color: #000000 !important;
+    }
+
+    /* エヴァMAGI風 - 3つのボックスの横並び配置 */
+    .magi-container {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: space-between;
+        width: 100%;
+        margin: 2rem 0;
+    }
+    .magi-box {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Courier New', monospace;
+        font-weight: bold;
+        font-size: 1em;
+        border: 4px solid;
+        padding: 2rem;
+        min-height: 200px;
+        clip-path: polygon(10% 0%, 90% 0%, 100% 10%, 100% 90%, 90% 100%, 10% 100%, 0% 90%, 0% 10%);
+    }
+    .magi-box-title {
+        font-size: 0.7em;
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.1em;
+        white-space: nowrap;
+        color: #000000 !important;
+    }
+    .magi-box-status {
+        font-size: 1.0em;
+        margin-top: 0.5rem;
+        color: #000000 !important;
+    }
+
+    /* 各MAGIシステムの色（固有色で統一） */
+    .magi-melchior {
+        background: #cc0000 !important;
+        border-color: #ff0000 !important;
+        box-shadow: 0 0 40px rgba(255, 0, 0, 0.8) !important;
+        color: #000000 !important;
+    }
+    .magi-melchior .magi-box-title,
+    .magi-melchior .magi-box-status {
+        color: #000000 !important;
+    }
+    .magi-balthasar {
+        background: #0066cc !important;
+        border-color: #0080ff !important;
+        box-shadow: 0 0 40px rgba(0, 128, 255, 0.8) !important;
+        color: #000000 !important;
+    }
+    .magi-balthasar .magi-box-title,
+    .magi-balthasar .magi-box-status {
+        color: #000000 !important;
+    }
+    .magi-casper {
+        background: #cccc00 !important;
+        border-color: #ffff00 !important;
+        box-shadow: 0 0 40px rgba(255, 255, 0, 0.8) !important;
+        color: #000000 !important;
+    }
+    .magi-casper .magi-box-title,
+    .magi-casper .magi-box-status {
+        color: #000000 !important;
+    }
+
+    /* 投票中の状態 */
+    .magi-pending {
+        opacity: 0.6;
+    }
+
+    /* アニメーション定義 */
+    @keyframes fadeInScale {
+        0% {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes blink {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.3;
+        }
+    }
+
+    /* MAGIボックスの表示アニメーション */
+    .magi-box {
+        animation: fadeInScale 0.8s ease-out forwards;
+        opacity: 0;
+    }
+
+    .magi-melchior {
+        animation-delay: 0.1s;
+    }
+
+    .magi-balthasar {
+        animation-delay: 0.3s;
+    }
+
+    .magi-casper {
+        animation-delay: 0.5s;
+    }
+
+    /* 投票中の点滅アニメーション */
+    .voting-status {
+        animation: blink 1.5s infinite;
+        color: #000000 !important;
+    }
+
+    /* Streamlitアラートボックスの色調整 */
+    .stAlert {
+        background-color: #1a1a1a !important;
+        border: 2px solid #ff6600 !important;
+        color: #ff6600 !important;
+    }
+    .stAlert > div {
+        color: #ff6600 !important;
+    }
+    .stSuccess {
+        background-color: #1a1a1a !important;
+        border-color: #00ff00 !important;
+        color: #00ff00 !important;
+    }
+    .stError {
+        background-color: #1a1a1a !important;
+        border-color: #ff0000 !important;
+        color: #ff0000 !important;
+    }
+    .stWarning {
+        background-color: #1a1a1a !important;
+        border-color: #ffff00 !important;
+        color: #ffff00 !important;
+    }
+    .stInfo {
+        background-color: #1a1a1a !important;
+        border-color: #00ffff !important;
+        color: #00ffff !important;
+    }
+
+    /* その他の白い背景を持つコンポーネントを修正 */
+    .stMarkdown, .stText {
+        background-color: transparent !important;
+    }
+    div[data-testid="stMarkdownContainer"] {
+        background-color: transparent !important;
+    }
+    .element-container {
+        background-color: transparent !important;
+    }
+
+    .stExpander {
+        background-color: #1a1a1a !important;
+        border: 2px solid #ff6600 !important;
+    }
+    [data-testid="stExpander"] {
+        background-color: #1a1a1a !important;
+        border-color: #ff6600 !important;
+    }
+
+    /* Streamlitコンポーネントの色調整 - オレンジベース */
+    .stButton > button {
+        background-color: #000000;
+        color: #ff6600;
+        border: 2px solid #ff6600;
+        font-family: 'Courier New', monospace;
+        text-transform: uppercase;
+    }
+    .stButton > button:hover {
+        background-color: #ff6600;
+        color: #000000 !important;
+        box-shadow: 0 0 20px #ff6600;
+    }
+    .stButton > button:hover p,
+    .stButton > button:hover span,
+    .stButton > button:hover div {
+        color: #000000 !important;
+    }
+    .stTextArea textarea {
+        background-color: #1a1a1a;
+        color: #ff6600;
+        border: 2px solid #ff6600;
+        font-family: 'Courier New', monospace;
+    }
+    .stTextArea textarea::placeholder {
+        color: #cc5500 !important;
+        opacity: 0.7;
+    }
+    .stTextInput input {
+        background-color: #1a1a1a;
+        color: #ff6600;
+        border: 2px solid #ff6600;
+        font-family: 'Courier New', monospace;
+    }
+    .stTextInput input::placeholder {
+        color: #cc5500 !important;
+        opacity: 0.7;
+    }
+
+    /* サイドバー */
+    section[data-testid="stSidebar"] {
+        background-color: #000000;
+        border-right: 3px solid #ff6600;
+    }
+    section[data-testid="stSidebar"] * {
+        color: #ff6600 !important;
+        font-family: 'Courier New', monospace;
+    }
+
+    /* タブ */
+    .stTabs [data-baseweb="tab-list"] {
+        background-color: #000000;
+        border-bottom: 2px solid #ff6600;
+    }
+    .stTabs [data-baseweb="tab"] {
+        color: #ff6600 !important;
+        border-color: #ff6600 !important;
+        font-family: 'Courier New', monospace;
+        text-transform: uppercase;
+    }
+    .stTabs [data-baseweb="tab"] p {
+        color: #ff6600 !important;
+    }
+    .stTabs [aria-selected="true"] {
+        background-color: #ff6600 !important;
+    }
+    .stTabs [aria-selected="true"] p {
+        color: #000000 !important;
+        font-weight: bold;
+    }
+
+    /* 区切り線 */
+    hr {
+        border-color: #ff6600;
+        opacity: 0.5;
+    }
+
+    /* Streamlitヘッダーとツールバーを真っ黒に */
+    header[data-testid="stHeader"] {
+        background-color: #000000 !important;
+        border-bottom: 2px solid #ff6600;
+    }
+    .stDeployButton {
+        visibility: hidden;
+    }
+    #MainMenu {
+        visibility: hidden;
+    }
+    footer {
+        visibility: hidden;
+    }
+
+    /* ツールバーボタンの色 - オレンジ */
+    header[data-testid="stHeader"] button {
+        color: #ff6600 !important;
+    }
+    header[data-testid="stHeader"] svg {
+        fill: #ff6600 !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -71,25 +421,26 @@ def initialize_magi():
 
 
 def main():
-    # ヘッダー
+    # ヘッダー - エヴァMAGI風
     st.markdown("""
         <div class="main-header">
-            <h1>🤖 MAGI System</h1>
-            <p>Multiple AI General Intelligence - 3つのAIによる意思決定システム</p>
+            <h1>MAGI SYSTEM</h1>
+            <p style="font-size: 0.8em; letter-spacing: 0.2em; margin-top: 0.5rem;">MULTIPLE AI GENERAL INTELLIGENCE</p>
         </div>
     """, unsafe_allow_html=True)
 
     # サイドバー設定
     with st.sidebar:
-        st.header("📖 MAGIについて")
+        st.header("MAGI SYSTEM INFO")
         st.markdown("""
-        **MAGI System**は、3つの異なるAIモデルに
-        同じ質問をして、回答を比較・評価するシステムです。
+        **MAGI SYSTEM** - Multiple AI General Intelligence
 
-        **3つのシステム:**
-        - 🔴 **MELCHIOR** (GPT-5)
-        - 🔵 **BALTHASAR** (Claude Opus 4.1)
-        - 🟡 **CASPER** (Gemini 2.5 Pro)
+        3つの異なるAIモデルによる多数決型意思決定システム
+
+        **3 SYSTEMS:**
+        - **MELCHIOR-1** (GPT-5) - SCIENTIST
+        - **BALTHASAR-2** (Claude Opus 4.1) - MOTHER
+        - **CASPER-3** (Gemini 2.5 Pro) - WOMAN
         """)
 
     # デフォルトのtemperature値
@@ -98,11 +449,11 @@ def main():
     # メインコンテンツ
 
     # タブ作成
-    tab1, tab2, tab3 = st.tabs(["⚖️ 賛成/反対", "💬 質問分析", "📊 選択肢投票"])
+    tab1, tab2, tab3 = st.tabs(["APPROVE/REJECT", "QUESTION ANALYSIS", "OPTION VOTING"])
 
     with tab1:
         st.header("提案の承認/却下")
-        st.markdown("提案を入力すると、3つのMAGIシステムが賛成/反対を投票し、多数決で決定します")
+        st.markdown("提案を入力すると、3つのMAGIシステムが承認/否定を投票し、多数決で決定します")
 
         # サンプル提案ボタン
         st.subheader("💡 サンプル提案")
@@ -119,6 +470,20 @@ def main():
         with sample_col3:
             if st.button("📅 週休3日制導入", use_container_width=True):
                 st.session_state.proposal = "従業員の生産性向上のため、週休3日制を試験的に導入すべきか？"
+
+        sample_col4, sample_col5, sample_col6 = st.columns(3)
+
+        with sample_col4:
+            if st.button("🌱 完全ペーパーレス化", use_container_width=True):
+                st.session_state.proposal = "環境保護のため、社内の紙資料を完全に廃止しペーパーレス化すべきか？"
+
+        with sample_col5:
+            if st.button("🎓 社内教育プログラム必須化", use_container_width=True):
+                st.session_state.proposal = "全社員に対して月10時間以上の社内教育プログラム受講を必須化すべきか？"
+
+        with sample_col6:
+            if st.button("💰 成果報酬制度導入", use_container_width=True):
+                st.session_state.proposal = "固定給与の一部を成果報酬型に変更し、個人の業績に応じた報酬体系を導入すべきか？"
 
         st.divider()
 
@@ -141,39 +506,94 @@ def main():
             if magi is None:
                 return
 
-            # 投票過程セクション全体をplaceholderで管理
-            progress_section = st.empty()
+            # MAGIボックスをプレースホルダーで管理
+            magi_container = st.empty()
 
-            with progress_section.container():
-                # 投票過程の可視化
-                st.markdown("### 🔄 投票過程")
+            # MAGIボックスを描画する関数
+            def render_magi_boxes(balthasar_vote, casper_vote, melchior_vote, show_decision=False, decision_text="", melchior_reason="", balthasar_reason="", casper_reason=""):
+                # 投票結果に応じてステータステキストを決定
+                def get_status_text(vote):
+                    if vote == "承認" or vote == "否定":
+                        return vote
+                    else:
+                        return '投票中...'
 
-                # 各モデルのステータス表示エリア
-                status_cols = st.columns(3)
-                status_placeholders = {
-                    "MELCHIOR": status_cols[0].empty(),
-                    "BALTHASAR": status_cols[1].empty(),
-                    "CASPER": status_cols[2].empty()
-                }
+                # 投票結果に応じて背景色とテキスト色を決定
+                def get_box_style(vote):
+                    if vote == "承認":
+                        return "background: #0099cc; border-color: #00ccff; box-shadow: 0 0 40px rgba(0, 204, 255, 0.8);", "#000000"
+                    elif vote == "否定":
+                        return "background: #cc0000; border-color: #ff0000; box-shadow: 0 0 40px rgba(255, 0, 0, 0.8);", "#000000"
+                    else:
+                        return "background: #555555; border-color: #888888; box-shadow: 0 0 40px rgba(136, 136, 136, 0.5); opacity: 0.6;", "#ffffff"
 
-                # 初期状態を表示
-                for name, placeholder in status_placeholders.items():
-                    with placeholder.container():
-                        st.markdown(f"**{name}**")
-                        st.info("⏳ 待機中...")
+                melchior_style, melchior_color = get_box_style(melchior_vote)
+                balthasar_style, balthasar_color = get_box_style(balthasar_vote)
+                casper_style, casper_color = get_box_style(casper_vote)
+
+                melchior_status = get_status_text(melchior_vote)
+                balthasar_status = get_status_text(balthasar_vote)
+                casper_status = get_status_text(casper_vote)
+
+                decision_html = ""
+                if show_decision:
+                    decision_html = f'<div style="text-align: center; margin-top: 2rem; font-size: 1.5em; color: #ff6600; font-weight: bold;">{decision_text}</div>'
+
+                # 判断理由のHTML
+                reason_html = ""
+                if melchior_reason or balthasar_reason or casper_reason:
+                    reason_html = f"""
+<div style="display: flex; gap: 1.5rem; justify-content: space-between; width: 100%; margin-top: 2rem;">
+    <div style="flex: 1; background: #1a1a1a; border: 2px solid #ff0000; padding: 1rem; font-size: 0.85em;">
+        <div style="color: #ff0000; font-weight: bold; margin-bottom: 0.5rem;">🔴 MELCHIOR (GPT-5)</div>
+        <div style="color: #ff6600;">{melchior_reason}</div>
+    </div>
+    <div style="flex: 1; background: #1a1a1a; border: 2px solid #0080ff; padding: 1rem; font-size: 0.85em;">
+        <div style="color: #0080ff; font-weight: bold; margin-bottom: 0.5rem;">🔵 BALTHASAR (Claude Opus 4)</div>
+        <div style="color: #ff6600;">{balthasar_reason}</div>
+    </div>
+    <div style="flex: 1; background: #1a1a1a; border: 2px solid #ffff00; padding: 1rem; font-size: 0.85em;">
+        <div style="color: #ffff00; font-weight: bold; margin-bottom: 0.5rem;">🟡 CASPER (Gemini 2.5 Pro)</div>
+        <div style="color: #ff6600;">{casper_reason}</div>
+    </div>
+</div>
+"""
+
+                with magi_container.container():
+                    st.markdown(f"""
+<div style="display: flex; gap: 1.5rem; justify-content: space-between; width: 100%; margin: 2rem 0;">
+    <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Courier New', monospace; font-weight: bold; border: 4px solid; padding: 2rem; min-height: 200px; clip-path: polygon(10% 0%, 90% 0%, 100% 10%, 100% 90%, 90% 100%, 10% 100%, 0% 90%, 0% 10%); {melchior_style}">
+        <div style="font-size: 1.0em; margin-bottom: 0.5rem; letter-spacing: 0.05em; white-space: nowrap; color: {melchior_color};">MELCHIOR-1</div>
+        <div style="font-size: 1.5em; margin-top: 0.5rem; color: {melchior_color};">{melchior_status}</div>
+    </div>
+    <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Courier New', monospace; font-weight: bold; border: 4px solid; padding: 2rem; min-height: 200px; clip-path: polygon(10% 0%, 90% 0%, 100% 10%, 100% 90%, 90% 100%, 10% 100%, 0% 90%, 0% 10%); {balthasar_style}">
+        <div style="font-size: 1.0em; margin-bottom: 0.5rem; letter-spacing: 0.05em; white-space: nowrap; color: {balthasar_color};">BALTHASAR-2</div>
+        <div style="font-size: 1.5em; margin-top: 0.5rem; color: {balthasar_color};">{balthasar_status}</div>
+    </div>
+    <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Courier New', monospace; font-weight: bold; border: 4px solid; padding: 2rem; min-height: 200px; clip-path: polygon(10% 0%, 90% 0%, 100% 10%, 100% 90%, 90% 100%, 10% 100%, 0% 90%, 0% 10%); {casper_style}">
+        <div style="font-size: 1.0em; margin-bottom: 0.5rem; letter-spacing: 0.05em; white-space: nowrap; color: {casper_color};">CASPER-3</div>
+        <div style="font-size: 1.5em; margin-top: 0.5rem; color: {casper_color};">{casper_status}</div>
+    </div>
+</div>
+{decision_html}
+{reason_html}
+                    """, unsafe_allow_html=True)
+
+            # 初期状態のMAGIボックスを表示
+            render_magi_boxes("", "", "")
 
             try:
-                # 賛成/反対投票用のプロンプトを作成
+                # 承認/否定投票用のプロンプトを作成
                 voting_prompt = f"""{proposal}
 
 この提案について、あなたの人格（科学者/母/女性）の観点から判断してください。
 
 回答は以下の形式で必ず記載してください：
-【投票】賛成 または 【投票】反対
+【投票】承認 または 【投票】否定
 
 その後に、判断の理由を詳しく説明してください。"""
 
-                # 3つのモデルに並列で投票させる（進捗可視化付き）
+                # 3つのモデルに並列で投票させる
                 results = {}
                 votes = {}
                 reasons = {}
@@ -190,144 +610,90 @@ def main():
                         for name in magi.models.keys()
                     }
 
-                    # 各モデルを処理中に更新
-                    for name in magi.models.keys():
-                        with status_placeholders[name].container():
-                            st.markdown(f"**{name}**")
-                            st.warning("🔄 投票中...")
-
-                    # 完了したものから順次表示
+                    # 完了したものから順次処理し、リアルタイムで更新
                     try:
                         for future in concurrent.futures.as_completed(futures, timeout=180):
                             try:
                                 model_name, answer, status = future.result()
                                 results[model_name] = {"answer": answer, "status": status}
 
-                                # 賛成/反対を抽出
-                                if "【投票】賛成" in answer or "賛成" in answer[:100]:
-                                    vote_result = "賛成"
-                                    votes[model_name] = "賛成"
-                                elif "【投票】反対" in answer or "反対" in answer[:100]:
-                                    vote_result = "反対"
-                                    votes[model_name] = "反対"
+                                # 承認/否定を抽出
+                                if "【投票】承認" in answer or "承認" in answer[:100]:
+                                    vote_result = "承認"
+                                    votes[model_name] = "承認"
+                                elif "【投票】否定" in answer or "否定" in answer[:100]:
+                                    vote_result = "否定"
+                                    votes[model_name] = "否定"
                                 else:
                                     vote_result = "不明"
                                     votes[model_name] = "不明"
 
                                 reasons[model_name] = answer
 
-                                # ステータスを更新（投票結果を表示）
-                                with status_placeholders[model_name].container():
-                                    st.markdown(f"**{model_name}**")
-                                    if status == "success" and not answer.startswith("エラー") and not answer.startswith("回答なし"):
-                                        if vote_result == "賛成":
-                                            st.success("✅ 賛成")
-                                        elif vote_result == "反対":
-                                            st.error("❌ 反対")
-                                        else:
-                                            st.warning("❓ 不明")
-                                    else:
-                                        st.error("❌ エラー")
+                                # 投票が完了するたびにMAGIボックスを更新
+                                balthasar_vote = votes.get("BALTHASAR", "")
+                                casper_vote = votes.get("CASPER", "")
+                                melchior_vote = votes.get("MELCHIOR", "")
+                                render_magi_boxes(balthasar_vote, casper_vote, melchior_vote)
+
                             except Exception as e:
                                 model_name = futures[future]
                                 results[model_name] = {"answer": f"エラー: {str(e)}", "status": "error"}
                                 votes[model_name] = "不明"
                                 reasons[model_name] = f"エラー: {str(e)}"
-                                with status_placeholders[model_name].container():
-                                    st.markdown(f"**{model_name}**")
-                                    st.error("❌ エラー")
+
+                                # エラー時も更新
+                                balthasar_vote = votes.get("BALTHASAR", "")
+                                casper_vote = votes.get("CASPER", "")
+                                melchior_vote = votes.get("MELCHIOR", "")
+                                render_magi_boxes(balthasar_vote, casper_vote, melchior_vote)
+
                     except concurrent.futures.TimeoutError:
                         for future, model_name in futures.items():
                             if model_name not in results:
                                 results[model_name] = {"answer": "タイムアウト: 応答時間を超過しました", "status": "timeout"}
                                 votes[model_name] = "不明"
                                 reasons[model_name] = "タイムアウト: 応答時間を超過しました"
-                                with status_placeholders[model_name].container():
-                                    st.markdown(f"**{model_name}**")
-                                    st.error("⏱️ タイムアウト")
 
-                # すべての投票が完了したら投票過程セクションを非表示
+                # すべての投票が完了
                 import time
-                time.sleep(1.5)  # 結果を確認する時間を与える
-                progress_section.empty()  # 投票過程セクション全体を削除
+                time.sleep(0.5)
 
                 # 投票結果を集計
-                approve_count = sum(1 for v in votes.values() if v == "賛成")
-                reject_count = sum(1 for v in votes.values() if v == "反対")
+                approve_count = sum(1 for v in votes.values() if v == "承認")
+                reject_count = sum(1 for v in votes.values() if v == "否定")
                 unknown_count = sum(1 for v in votes.values() if v == "不明")
 
                 # 決定結果
                 if approve_count > reject_count:
                     decision = "承認"
-                    decision_color = "success"
                     decision_icon = "✅"
+                    decision_text = f"{decision_icon} 最終決定: {decision} ({approve_count}/3)"
                 elif reject_count > approve_count:
-                    decision = "却下"
-                    decision_color = "error"
+                    decision = "否定"
                     decision_icon = "❌"
+                    decision_text = f"{decision_icon} 最終決定: {decision} ({reject_count}/3)"
                 else:
                     decision = "保留（同数）"
-                    decision_color = "warning"
                     decision_icon = "⚠️"
+                    decision_text = f"{decision_icon} 最終決定: {decision} (承認 {approve_count} / 否定 {reject_count})"
 
-                st.divider()
+                # 最終決定をMAGIボックスと同じコンテナに表示
+                balthasar_vote = votes.get("BALTHASAR", "不明")
+                casper_vote = votes.get("CASPER", "不明")
+                melchior_vote = votes.get("MELCHIOR", "不明")
 
-                # 決定結果を表示
-                st.markdown(f"### {decision_icon} 決定結果")
-                if decision_color == "success":
-                    st.success(f"**{decision}** - 賛成 {approve_count}/3")
-                elif decision_color == "error":
-                    st.error(f"**{decision}** - 反対 {reject_count}/3")
-                else:
-                    st.warning(f"**{decision}** - 賛成 {approve_count} / 反対 {reject_count}")
+                melchior_reason = reasons.get("MELCHIOR", "回答なし")
+                balthasar_reason = reasons.get("BALTHASAR", "回答なし")
+                casper_reason = reasons.get("CASPER", "回答なし")
 
-                # 投票結果サマリー
-                st.markdown("### 📊 投票結果")
-                vote_cols = st.columns(3)
-
-                for idx, name in enumerate(["MELCHIOR", "BALTHASAR", "CASPER"]):
-                    with vote_cols[idx]:
-                        vote = votes.get(name, "不明")
-                        if vote == "賛成":
-                            st.success(f"**{name}**\n\n✅ 賛成")
-                        elif vote == "反対":
-                            st.error(f"**{name}**\n\n❌ 反対")
-                        else:
-                            st.warning(f"**{name}**\n\n❓ 不明")
-
-                st.divider()
-
-                # 各モデルの判断理由を表示
-                st.markdown("### 💭 各システムの判断理由")
-
-                col1, col2, col3 = st.columns(3)
-
-                with col1:
-                    st.markdown(f"""
-                        <div class="model-card melchior">
-                            <div class="model-name">🔴 MELCHIOR</div>
-                            <small>GPT-5 (科学者)</small>
-                        </div>
-                    """, unsafe_allow_html=True)
-                    st.markdown(reasons.get("MELCHIOR", "回答なし"))
-
-                with col2:
-                    st.markdown(f"""
-                        <div class="model-card balthasar">
-                            <div class="model-name">🔵 BALTHASAR</div>
-                            <small>Claude Opus 4 (母)</small>
-                        </div>
-                    """, unsafe_allow_html=True)
-                    st.markdown(reasons.get("BALTHASAR", "回答なし"))
-
-                with col3:
-                    st.markdown(f"""
-                        <div class="model-card casper">
-                            <div class="model-name">🟡 CASPER</div>
-                            <small>Gemini 2.5 Pro (女性)</small>
-                        </div>
-                    """, unsafe_allow_html=True)
-                    st.markdown(reasons.get("CASPER", "回答なし"))
+                render_magi_boxes(
+                    balthasar_vote, casper_vote, melchior_vote,
+                    show_decision=True, decision_text=decision_text,
+                    melchior_reason=melchior_reason,
+                    balthasar_reason=balthasar_reason,
+                    casper_reason=casper_reason
+                )
 
             except Exception as e:
                 st.error(f"エラーが発生しました: {str(e)}")
@@ -351,6 +717,20 @@ def main():
         with analysis_sample_col3:
             if st.button("💼 リモートワーク", use_container_width=True, key="analysis_remote"):
                 st.session_state.analysis_q = "リモートワークとオフィスワークのそれぞれの利点と欠点を比較してください"
+
+        analysis_sample_col4, analysis_sample_col5, analysis_sample_col6 = st.columns(3)
+
+        with analysis_sample_col4:
+            if st.button("🏥 医療とテクノロジー", use_container_width=True, key="analysis_health"):
+                st.session_state.analysis_q = "AIやIoT技術が医療業界にもたらす革新について教えてください"
+
+        with analysis_sample_col5:
+            if st.button("📚 教育改革", use_container_width=True, key="analysis_education"):
+                st.session_state.analysis_q = "現代の教育システムが抱える課題と、その解決策について論じてください"
+
+        with analysis_sample_col6:
+            if st.button("🚀 宇宙開発", use_container_width=True, key="analysis_space"):
+                st.session_state.analysis_q = "民間企業による宇宙開発が人類にもたらす影響について分析してください"
 
         st.divider()
 
@@ -455,6 +835,32 @@ def main():
                 st.session_state.vote_opt2 = "JavaScript"
                 st.session_state.vote_opt3 = "Java"
                 st.session_state.vote_opt4 = "Go"
+
+        vote_sample_col4, vote_sample_col5, vote_sample_col6 = st.columns(3)
+
+        with vote_sample_col4:
+            if st.button("☁️ クラウド選定", use_container_width=True, key="sample_cloud"):
+                st.session_state.vote_q = "新規プロジェクトで使うべきクラウドプラットフォームは？"
+                st.session_state.vote_opt1 = "AWS"
+                st.session_state.vote_opt2 = "Azure"
+                st.session_state.vote_opt3 = "GCP"
+                st.session_state.vote_opt4 = "Oracle Cloud"
+
+        with vote_sample_col5:
+            if st.button("🎬 週末の過ごし方", use_container_width=True, key="sample_weekend"):
+                st.session_state.vote_q = "今週末のチームビルディングで何をすべき？"
+                st.session_state.vote_opt1 = "映画鑑賞"
+                st.session_state.vote_opt2 = "スポーツ"
+                st.session_state.vote_opt3 = "BBQ"
+                st.session_state.vote_opt4 = "ボードゲーム"
+
+        with vote_sample_col6:
+            if st.button("🗄️ データベース選定", use_container_width=True, key="sample_db"):
+                st.session_state.vote_q = "新しいアプリケーションで使うべきデータベースは？"
+                st.session_state.vote_opt1 = "PostgreSQL"
+                st.session_state.vote_opt2 = "MongoDB"
+                st.session_state.vote_opt3 = "MySQL"
+                st.session_state.vote_opt4 = "Redis"
 
         st.divider()
 

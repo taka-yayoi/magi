@@ -10,7 +10,7 @@ MAGI Systemは、新世紀エヴァンゲリオンに登場するスーパーコ
 
 - **MELCHIOR** (GPT-5) - 科学者としての人格
 - **BALTHASAR** (Claude Opus 4.1) - 母としての人格
-- **CASPER** (Gemini 2.5 Flash) - 女性としての人格
+- **CASPER** (Gemini 2.5 Pro) - 女性としての人格
 
 各システムは独自の人格を持ち、同じ提案や質問に対して異なる視点から判断を下します。
 
@@ -139,7 +139,7 @@ magi/
 - **Databricks Foundation Model API**: 以下の3つのモデルへのアクセス
   - GPT-5 (OpenAI) - reasoning model
   - Claude Opus 4.1 (Anthropic)
-  - Gemini 2.5 Flash (Google)
+  - Gemini 2.5 Pro (Google)
 - **Requests**: HTTP通信ライブラリ
 - **concurrent.futures**: 並列処理
 
@@ -172,7 +172,7 @@ magi/
 - **GPT-5**:
   - `temperature`パラメータ非対応（デフォルト値1を使用）
   - reasoning modelのため`max_tokens=16000`を設定
-- **Claude Opus 4.1, Gemini 2.5 Flash**: `max_tokens=4000`、`temperature=0.7`
+- **Claude Opus 4.1, Gemini 2.5 Pro**: `max_tokens=4000`、`temperature=0.7`
 
 ## 注意事項
 

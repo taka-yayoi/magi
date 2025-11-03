@@ -14,6 +14,16 @@ MAGI Systemは、新世紀エヴァンゲリオンに登場するスーパーコ
 
 各システムは独自の人格を持ち、同じ提案や質問に対して異なる視点から判断を下します。
 
+## スクリーンショット
+
+![MAGI System 投票結果画面](img/magi_system_screenshot.png)
+
+*投票結果の表示例: 3つのMAGIシステムが提案を評価し、2対1で承認を決定。各システムの判断理由が色分けされて表示されます。*
+
+- **水色のボックス**: 承認
+- **赤色のボックス**: 否定
+- **灰色のボックス**: 投票中
+
 ## 機能
 
 ### 1. 賛成/反対モード（メイン機能）
@@ -133,11 +143,16 @@ MAGI Systemは、新世紀エヴァンゲリオンに登場するスーパーコ
 
 ```
 magi/
-├── app.py              # 統合Streamlitアプリケーション（全機能を含む）
-├── app.yaml            # Databricks Apps設定ファイル
-├── requirements.txt    # Python依存関係
-├── .gitignore          # Git無視ファイル
-└── README.md           # このファイル
+├── app.py                       # 統合Streamlitアプリケーション（全機能を含む）
+├── magi_system.py               # MAGIシステムロジック
+├── databricks_client.py         # Databricks API クライアント
+├── app.yaml                     # Databricks Apps設定ファイル
+├── requirements.txt             # Python依存関係
+├── .gitignore                   # Git無視ファイル
+├── README.md                    # このファイル
+├── DEVELOPMENT_NOTES.md         # 開発メモ
+└── img/
+    └── magi_system_screenshot.png  # スクリーンショット
 ```
 
 ## 技術スタック
